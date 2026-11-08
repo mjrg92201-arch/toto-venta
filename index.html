@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DONDE TOTO - Menú Digital & Servicio Express</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#F36E21',
+                            darkOrange: '#D9580F',
+                            lightOrange: '#FFF4ED',
+                            black: '#1E1E1E',
+                            grayBg: '#F8F9FA',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-brand-grayBg text-brand-black font-sans antialiased flex flex-col min-h-screen selection:bg-brand-orange selection:text-white">
+
+    <!-- TOP EXPRESS BANNER -->
+    <div class="bg-brand-orange text-white text-xs sm:text-sm font-extrabold text-center py-2.5 px-4 shadow-md sticky top-0 z-50 flex items-center justify-center gap-2">
+        <i class="fa-solid fa-motorcycle text-base"></i>
+        <span>SERVICIO EXPRESS: <a href="tel:72164864" class="underline tracking-wider hover:text-yellow-200">7216-4864</a></span>
+        <span class="hidden md:inline-block text-orange-200">|</span>
+        <span class="hidden md:inline-block font-medium"><i class="fa-solid fa-location-dot mr-1"></i> Calle Loría, 200m Oeste de Tíos Bar</span>
+    </div>
+
+    <!-- MAIN NAVBAR HEADER -->
+    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-[38px] sm:top-[42px] z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- LOGO BRANDING -->
+            <a href="#" class="flex items-center gap-3 group">
+                <!-- SVG Logo replication of Donde Toto chicken -->
+                <div class="w-12 h-12 bg-white rounded-2xl border-2 border-brand-orange p-1 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <!-- Chicken Body -->
+                        <path d="M 30,70 Q 20,40 50,30 Q 75,30 80,55 Q 85,75 55,85 Z" fill="#FFFFFF" stroke="#1E1E1E" stroke-width="4"/>
+                        <!-- Comb -->
+                        <path d="M 45,20 Q 50,10 55,20 Q 60,10 65,22 Q 55,28 45,20 Z" fill="#F36E21" stroke="#1E1E1E" stroke-width="3"/>
+                        <!-- Beak -->
+                        <path d="M 65,35 L 75,40 L 65,45 Z" fill="#F36E21" stroke="#1E1E1E" stroke-width="2"/>
+                        <!-- Eye -->
+                        <circle cx="58" cy="36" r="3" fill="#1E1E1E"/>
+                        <!-- Chicken Leg Held -->
+                        <path d="M 70,60 Q 85,50 90,65 Q 85,75 75,70 Z" fill="#F36E21" stroke="#1E1E1E" stroke-width="3"/>
+                        <!-- Bone end -->
+                        <circle cx="88" cy="70" r="3" fill="#FFFFFF" stroke="#1E1E1E" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-2xl font-black tracking-tight leading-none text-brand-orange">DONDE <span class="text-brand-black">TOTO</span></span>
+                    <span class="text-[10px] font-bold tracking-widest text-gray-500 uppercase">POLLO & COMIDA RÁPIDA</span>
+                </div>
+            </a>
+
+            <!-- NAVIGATION LINKS -->
+            <nav class="hidden md:flex items-center gap-8 font-bold text-sm tracking-wide">
+                <a href="#hero" class="text-brand-black hover:text-brand-orange transition-colors">INICIO</a>
+                <a href="#menu" class="text-brand-black hover:text-brand-orange transition-colors">MENÚ COMPLETO</a>
+                <a href="#ubicacion" class="text-brand-black hover:text-brand-orange transition-colors">UBICACIÓN</a>
+            </nav>
+
+            <!-- RIGHT ACTIONS -->
+            <div class="flex items-center gap-3">
+                <button onclick="toggleCartModal()" class="relative bg-brand-lightOrange border border-brand-orange/30 hover:bg-brand-orange hover:text-white text-brand-orange font-bold p-3 sm:px-4 sm:py-2.5 rounded-full flex items-center gap-2 transition-all">
+                    <i class="fa-solid fa-basket-shopping text-lg"></i>
+                    <span class="hidden sm:inline text-sm">Mi Pedido</span>
+                    <span id="cart-count-badge" class="bg-brand-orange group-hover:bg-white text-white font-black text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO BANNER -->
+    <section id="hero" class="relative bg-gradient-to-r from-brand-orange via-orange-500 to-brand-darkOrange text-white overflow-hidden py-10 md:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid md:grid-cols-2 gap-8 items-center">
+            
+            <div class="text-center md:text-left space-y-4">
+                <div class="inline-flex items-center gap-2 bg-white text-brand-orange font-black text-xs uppercase px-4 py-1.5 rounded-full shadow-lg">
+                    <i class="fa-solid fa-fire text-brand-orange"></i> EL MEJOR POLLO DE LA ZONA
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-black leading-tight tracking-tight">
+                    ¡SABOR CRUJANTERO Y <br/><span class="text-yellow-300">100% ARTESANAL!</span>
+                </h1>
+                <p class="text-sm sm:text-base text-orange-100 max-w-lg font-medium">
+                    Piezas de pollo doraditas, surtidas completas, vigorones, tacos, quesadillas y hamburguesas. ¡Listos para tu servicio express!
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 pt-2">
+                    <a href="#menu" class="w-full sm:w-auto text-center bg-brand-black hover:bg-gray-800 text-white font-black text-base px-7 py-3.5 rounded-full shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-0.5">
+                        VER MENÚ Y PEDIR <i class="fa-solid fa-arrow-right ml-2 text-brand-orange"></i>
+                    </a>
+                    <a href="https://wa.me/50672164864" target="_blank" class="w-full sm:w-auto text-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm px-6 py-3.5 rounded-full shadow transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> WHATSAPP EXPRESS
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Image Showcase -->
+            <div class="relative flex justify-center">
+                <div class="relative w-full max-w-md">
+                    <img src="https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=700&q=80" 
+                         alt="Pollo Frito Donde Toto" 
+                         class="rounded-3xl shadow-2xl border-4 border-white object-cover w-full h-[280px] sm:h-[340px]">
+                    <div class="absolute -bottom-4 -left-2 sm:left-4 bg-white text-brand-black p-3.5 rounded-2xl shadow-xl flex items-center gap-3 border-2 border-brand-orange">
+                        <div class="bg-brand-orange text-white p-2.5 rounded-xl font-black text-base">
+                            ₡8.000
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase">Recomendado</p>
+                            <p class="font-black text-xs sm:text-sm">Surtida Especial Donde Toto</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORIES SELECTOR BAR -->
+    <section class="sticky top-[118px] sm:top-[122px] z-30 bg-white border-b border-gray-200 shadow-sm py-3">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-1 pt-1 justify-start" id="category-bar">
+                <!-- Dynamically populated categories -->
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN MENU SECTION -->
+    <main id="menu" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <div>
+                <span class="text-brand-orange font-black tracking-widest text-xs uppercase">MENÚ DONDE TOTO</span>
+                <h2 id="current-category-title" class="text-2xl sm:text-4xl font-black text-brand-black tracking-tight">
+                    Todos los Productos
+                </h2>
+            </div>
+            
+            <!-- Search bar -->
+            <div class="relative w-full md:w-80">
+                <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="Buscar pollo, taco, vigorón..." class="w-full bg-white border border-gray-300 focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 rounded-full py-2.5 pl-10 pr-4 text-sm font-semibold outline-none transition-all">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-gray-400"></i>
+            </div>
+        </div>
+
+        <!-- PRODUCTS GRID -->
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Cards rendered here by JS -->
+        </div>
+
+        <!-- EMPTY SEARCH STATE -->
+        <div id="empty-state" class="hidden text-center py-16 bg-white rounded-3xl border border-dashed border-gray-300">
+            <i class="fa-solid fa-drumstick-bite text-5xl text-gray-300 mb-3"></i>
+            <h3 class="text-lg font-bold text-gray-700">No encontramos ese platillo</h3>
+            <p class="text-xs text-gray-500 mt-1">Intenta buscando otro término o revisa las categorías del menú.</p>
+        </div>
+    </main>
+
+    <!-- FOOTER & ADDRESS -->
+    <footer id="ubicacion" class="bg-brand-black text-white pt-12 pb-8 border-t-4 border-brand-orange">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+                
+                <!-- Brand Info -->
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand-orange rounded-xl flex items-center justify-center font-black text-xl text-white">
+                            T
+                        </div>
+                        <span class="text-xl font-black tracking-tight">DONDE TOTO</span>
+                    </div>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Especialistas en pollo frito doradito, vigorones, tacos, quesadillas y las mejores surtidas familiares.
+                    </p>
+                </div>
+
+                <!-- Express Info -->
+                <div class="space-y-2">
+                    <h4 class="font-black text-sm uppercase text-brand-orange tracking-wider">Servicio Express</h4>
+                    <p class="text-sm font-bold"><i class="fa-solid fa-phone text-brand-orange mr-2"></i> 7216-4864</p>
+                    <p class="text-xs text-gray-400"><i class="fa-brands fa-whatsapp text-emerald-500 text-sm mr-2"></i> Pedidos inmediatos por WhatsApp</p>
+                </div>
+
+                <!-- Location Address -->
+                <div class="space-y-2">
+                    <h4 class="font-black text-sm uppercase text-brand-orange tracking-wider">Dirección</h4>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                        <i class="fa-solid fa-location-dot text-brand-orange mr-1.5"></i> CALLE LORÍA, 200 OESTE DE TÍOS BAR.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="border-t border-gray-800 pt-6 text-center text-xs text-gray-500 font-medium">
+                <p>© 2026 DONDE TOTO. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SHOPPING CART MODAL -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300 flex justify-end">
+        <div class="bg-white w-full max-w-md h-full shadow-2xl flex flex-col justify-between transform translate-x-full transition-transform duration-300" id="cart-panel">
+            
+            <!-- Modal Header -->
+            <div class="p-4 border-b border-gray-100 flex items-center justify-between bg-brand-lightOrange">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-bag-shopping text-2xl text-brand-orange"></i>
+                    <div>
+                        <h3 class="font-black text-base text-brand-black">Tu Pedido Express</h3>
+                        <p class="text-xs text-gray-500 font-semibold" id="modal-cart-subtitle">0 ítems seleccionados</p>
+                    </div>
+                </div>
+                <button onclick="toggleCartModal()" class="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-gray-100">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Cart Items -->
+            <div id="cart-items-container" class="flex-grow overflow-y-auto p-4 space-y-3">
+                <!-- JS populated -->
+            </div>
+
+            <!-- Cart Checkout Form & Summary -->
+            <div class="p-4 border-t border-gray-200 bg-gray-50 space-y-3">
+                
+                <!-- Customer Details -->
+                <div class="space-y-2">
+                    <input type="text" id="cust-name" placeholder="Tu Nombre completo" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-xs font-semibold focus:border-brand-orange outline-none">
+                    <input type="text" id="cust-address" placeholder="Dirección exacta para la entrega express" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-xs font-semibold focus:border-brand-orange outline-none">
+                </div>
+
+                <div class="space-y-1 text-xs font-semibold text-gray-600 pt-2 border-t border-gray-200">
+                    <div class="flex justify-between text-base font-black text-brand-black">
+                        <span>TOTAL:</span>
+                        <span id="cart-total" class="text-brand-orange text-xl">₡0</span>
+                    </div>
+                </div>
+
+                <!-- Send via WhatsApp Button -->
+                <button onclick="sendWhatsAppOrder()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black text-center py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>ENVIAR PEDIDO POR WHATSAPP</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-brand-black text-white px-5 py-3 rounded-2xl shadow-2xl z-50 flex items-center gap-3 border-2 border-brand-orange transform translate-y-20 opacity-0 transition-all duration-300">
+        <i class="fa-solid fa-circle-check text-brand-orange text-xl"></i>
+        <p class="font-bold text-xs sm:text-sm" id="toast-message">Agregado al pedido</p>
+    </div>
+
+    <script>
+        // FULL MENU DATA FROM BOTH IMAGES
+        const products = [
+            // 1. POLLO
+            {
+                id: 101,
+                name: 'Porción de Muslo & Cadera',
+                category: 'pollo',
+                price: 2100,
+                hasVariant: true,
+                variantName: 'Con Papas',
+                variantPrice: 2600,
+                image: 'https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=500&q=80',
+                description: 'Porción crujiente de muslo y cadera dorados.'
+            },
+            {
+                id: 102,
+                name: 'Porción de Pechuga & Ala',
+                category: 'pollo',
+                price: 2300,
+                hasVariant: true,
+                variantName: 'Con Papas',
+                variantPrice: 2800,
+                image: 'https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=500&q=80',
+                description: 'Porción de pechuga jugosa y ala doradita.'
+            },
+            {
+                id: 103,
+                name: 'Alitas de Pollo 6 UDS',
+                category: 'pollo',
+                price: 3500,
+                image: 'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=500&q=80',
+                description: '6 Alitas con papas y salsa a elegir.'
+            },
+            {
+                id: 104,
+                name: 'Alitas de Pollo 12 UDS',
+                category: 'pollo',
+                price: 7000,
+                image: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=500&q=80',
+                description: '12 Alitas de pollo con papas y salsa a elegir.'
+            },
+            {
+                id: 105,
+                name: 'Nuggets de Pollo 12 UDS',
+                category: 'pollo',
+                price: 3000,
+                image: 'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=500&q=80',
+                description: '12 Nuggets crujientes con papas y salsa a elegir.'
+            },
+            {
+                id: 106,
+                name: 'Fajitas de Pollo',
+                category: 'pollo',
+                price: 3500,
+                image: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=500&q=80',
+                description: 'Tiras de pollo empanizado con papas y salsa.'
+            },
+
+            // 2. FAMILIARES
+            {
+                id: 201,
+                name: 'Combo Familiar 8 Piezas',
+                category: 'familiares',
+                price: 12000,
+                image: 'https://images.unsplash.com/photo-1513639776629-7b61b0ac49cb?auto=format&fit=crop&w=500&q=80',
+                description: '2 Muslos, 2 Caderas, 2 Pechugas, 2 Alas, 4 Ceviches de Plátano & Refresco de 3 Litros.'
+            },
+            {
+                id: 202,
+                name: 'Combo Familiar 10 Piezas',
+                category: 'familiares',
+                price: 14000,
+                image: 'https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=500&q=80',
+                description: '3 Muslos, 3 Caderas, 2 Pechugas, 2 Alas, 5 Ceviches de Plátano & Refresco de 3 Litros.'
+            },
+
+            // 3. TACOS
+            {
+                id: 301,
+                name: 'Taco Pequeño',
+                category: 'tacos',
+                price: 1500,
+                hasVariant: true,
+                variantName: 'Con Papas',
+                variantPrice: 2000,
+                image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=500&q=80',
+                description: 'Taco crujiente enrollado tradicional.'
+            },
+            {
+                id: 302,
+                name: 'Súper Taco (Maíz o Harina)',
+                category: 'tacos',
+                price: 2000,
+                hasVariant: true,
+                variantName: 'Con Papas',
+                variantPrice: 2500,
+                image: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=500&q=80',
+                description: 'Súper taco en tortilla de maíz o harina.'
+            },
+            {
+                id: 303,
+                name: 'Súper Empollado Muslo o Cadera',
+                category: 'tacos',
+                price: 4000,
+                image: 'https://images.unsplash.com/photo-1584208124888-3a20b9c799e2?auto=format&fit=crop&w=500&q=80',
+                description: 'Taco especial empollado con muslo o cadera y papas.'
+            },
+            {
+                id: 304,
+                name: 'Súper Empollado Pechuga',
+                category: 'tacos',
+                price: 4500,
+                image: 'https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?auto=format&fit=crop&w=500&q=80',
+                description: 'Súper taco empollado con pechuga jugosa.'
+            },
+
+            // 4. QUESADILLAS
+            {
+                id: 401,
+                name: 'Quesadilla de Pollo',
+                category: 'quesadillas',
+                price: 4000,
+                hasVariant: true,
+                variantName: 'Con Papas',
+                variantPrice: 4500,
+                image: 'https://images.unsplash.com/photo-1618040996337-56904b7850b9?auto=format&fit=crop&w=500&q=80',
+                description: 'Quesadilla rellena de pollo mechado y queso derretido.'
+            },
+            {
+                id: 402,
+                name: 'Quesadilla de Carne',
+                category: 'quesadillas',
+                price: 4000,
+                hasVariant: true,
+                variantName: 'Con Papas',
+                variantPrice: 4500,
+                image: 'https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?auto=format&fit=crop&w=500&q=80',
+                description: 'Quesadilla de carne sazonada a la plancha.'
+            },
+            {
+                id: 403,
+                name: 'Quesadilla Mixta',
+                category: 'quesadillas',
+                price: 4500,
+                hasVariant: true,
+                variantName: 'Con Papas Gajo',
+                variantPrice: 5000,
+                image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=500&q=80',
+                description: 'Mezcla de pollo y carne con queso abundante.'
+            },
+
+            // 5. HAMBURGUESAS
+            {
+                id: 501,
+                name: 'Hamburguesa Sencilla',
+                category: 'hamburguesas',
+                price: 2500,
+                hasVariant: true,
+                variantName: 'Con Papas',
+                variantPrice: 3000,
+                image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80',
+                description: 'Clásica hamburguesa con carne de la casa y vegetales.'
+            },
+            {
+                id: 502,
+                name: 'Hamburguesa Mechada',
+                category: 'hamburguesas',
+                price: 3000,
+                hasVariant: true,
+                variantName: 'Con Papas',
+                variantPrice: 3800,
+                image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=500&q=80',
+                description: 'Hamburguesa con deliciosa carne mechada sazonada.'
+            },
+            {
+                id: 503,
+                name: 'Hamburguesa Especial',
+                category: 'hamburguesas',
+                price: 3000,
+                hasVariant: true,
+                variantName: 'Con Papas',
+                variantPrice: 3800,
+                image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=500&q=80',
+                description: 'Receta especial de la casa con salsas y queso.'
+            },
+            {
+                id: 504,
+                name: 'Hamburguesa Deluxe',
+                category: 'hamburguesas',
+                price: 4500,
+                hasVariant: true,
+                variantName: 'Con Papas Gajo',
+                variantPrice: 5000,
+                image: 'https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?auto=format&fit=crop&w=500&q=80',
+                description: 'Hamburguesa premium con tocineta y ingredientes extras.'
+            },
+            {
+                id: 505,
+                name: 'Hamburguesa De Pollo',
+                category: 'hamburguesas',
+                price: 3000,
+                hasVariant: true,
+                variantName: 'Con Papas',
+                variantPrice: 3800,
+                image: 'https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?auto=format&fit=crop&w=500&q=80',
+                description: 'Pechuga de pollo empanizada en pan suave.'
+            },
+
+            // 6. PAPAS FRITAS
+            {
+                id: 601,
+                name: 'Papas Fritas - Orden Pequeña',
+                category: 'papas',
+                price: 800,
+                image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=500&q=80',
+                description: 'Porción personal de papas crujientes.'
+            },
+            {
+                id: 602,
+                name: 'Papas Fritas - Orden Mediana',
+                category: 'papas',
+                price: 2000,
+                image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=500&q=80',
+                description: 'Porción mediana de papas doraditas.'
+            },
+            {
+                id: 603,
+                name: 'Papas Fritas - Orden Grande',
+                category: 'papas',
+                price: 2500,
+                image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=500&q=80',
+                description: 'Porción grande para compartir.'
+            },
+            {
+                id: 604,
+                name: 'Salchipapas',
+                category: 'papas',
+                price: 3500,
+                image: 'https://images.unsplash.com/photo-1585109649139-366815a0d713?auto=format&fit=crop&w=500&q=80',
+                description: 'Papas fritas servidas con salchichas picadas.'
+            },
+            {
+                id: 605,
+                name: 'Papadeluxe',
+                category: 'papas',
+                price: 4000,
+                image: 'https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=500&q=80',
+                description: 'Papas especiales preparadas al estilo Deluxe.'
+            },
+            {
+                id: 606,
+                name: 'Totopop',
+                category: 'papas',
+                price: 4000,
+                image: 'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=500&q=80',
+                description: 'Combinación crujiente de papas y popcorn de pollo.'
+            },
+
+            // 7. ENTRADAS
+            {
+                id: 701,
+                name: 'Tequeños',
+                category: 'entradas',
+                price: 2000,
+                image: 'https://images.unsplash.com/photo-1541529086526-db283c563270?auto=format&fit=crop&w=500&q=80',
+                description: 'Deditos de queso empanizados y fritos.'
+            },
+            {
+                id: 702,
+                name: 'Aros de Cebolla',
+                category: 'entradas',
+                price: 2000,
+                image: 'https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&w=500&q=80',
+                description: 'Aros de cebolla dorados y crocantes.'
+            },
+            {
+                id: 703,
+                name: 'Tacos de Queso',
+                category: 'entradas',
+                price: 2000,
+                image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=500&q=80',
+                description: 'Tacos enrollados de queso derretido.'
+            },
+            {
+                id: 704,
+                name: 'Papas Sazonadas',
+                category: 'entradas',
+                price: 2000,
+                image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=500&q=80',
+                description: 'Papas sazonadas con especias Toto.'
+            },
+            {
+                id: 705,
+                name: 'Orden de Tostadas',
+                category: 'entradas',
+                price: 1500,
+                image: 'https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&w=500&q=80',
+                description: 'Tostadas crujientes tradicionales.'
+            },
+
+            // 8. ENSALADA DE POLLO
+            {
+                id: 801,
+                name: 'Ensalada de Pollo Tradicional',
+                category: 'ensaladas',
+                price: 3500,
+                image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=500&q=80',
+                description: 'Acompañada de lechuga fresca y tomate.'
+            },
+            {
+                id: 802,
+                name: 'Ensalada de Pollo con Papa Gajo',
+                category: 'ensaladas',
+                price: 4500,
+                image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=500&q=80',
+                description: 'Ensalada fresca servida con crujientes papas gajo.'
+            },
+
+            // 9. VIGORONES
+            {
+                id: 901,
+                name: 'Vigorón de Costilla de Cerdo',
+                category: 'vigorones',
+                price: 4500,
+                image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80',
+                description: 'Costilla de cerdo, ensalada de repollo, yuca frita y limón.'
+            },
+            {
+                id: 902,
+                name: 'Vigorón de Carne',
+                category: 'vigorones',
+                price: 4000,
+                image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80',
+                description: 'Carne sazonada, ensalada de repollo, yuca frita y limón.'
+            },
+
+            // 10. SURTIDA
+            {
+                id: 1001,
+                name: 'Surtida Donde Toto',
+                category: 'surtidas',
+                price: 8000,
+                badge: 'Más Pedida',
+                image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80',
+                description: 'Costilla de Cerdo, Alitas de Pollo, Taco de Queso, Taco de Salchicha, Taco de Carne, Papas Fritas, Tequeño, Popcorn de Pollo y Aros de Cebolla.'
+            },
+
+            // 11. MENU DE NIÑOS
+            {
+                id: 1101,
+                name: 'Nuggets de Pollo (10uds)',
+                category: 'ninos',
+                price: 2500,
+                image: 'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=500&q=80',
+                description: '10 Nuggets de pollo para los más pequeños.'
+            },
+            {
+                id: 1102,
+                name: 'Salchipapas Niños',
+                category: 'ninos',
+                price: 2500,
+                image: 'https://images.unsplash.com/photo-1585109649139-366815a0d713?auto=format&fit=crop&w=500&q=80',
+                description: 'Porción infantil de papas y salchichas.'
+            },
+            {
+                id: 1103,
+                name: 'Taco Pequeño con Papas',
+                category: 'ninos',
+                price: 2500,
+                image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=500&q=80',
+                description: 'Taco mini acompañado de papas fritas.'
+            },
+            {
+                id: 1104,
+                name: 'Pieza de Muslo con Papa',
+                category: 'ninos',
+                price: 2500,
+                image: 'https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=500&q=80',
+                description: '1 Muslo de pollo frito con papas fritas.'
+            },
+
+            // 12. ADICIONALES
+            { id: 1201, name: 'Ceviche de Plátano', category: 'adicionales', price: 400, image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=500&q=80', description: 'Porción de ceviche de plátano.' },
+            { id: 1202, name: 'Salsa de Tomate', category: 'adicionales', price: 400, image: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=500&q=80', description: 'Porción extra de ketchup.' },
+            { id: 1203, name: 'Mayonesa', category: 'adicionales', price: 400, image: 'https://images.unsplash.com/photo-1585238342024-78d387f4a707?auto=format&fit=crop&w=500&q=80', description: 'Porción extra de mayonesa.' },
+            { id: 1204, name: 'Salsas Especiales', category: 'adicionales', price: 600, image: 'https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&w=500&q=80', description: 'Salsas preparadas de la casa.' },
+            { id: 1205, name: 'Orden de tortillas', category: 'adicionales', price: 200, image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=500&q=80', description: 'Tortillas de maíz calientes.' },
+
+            // 13. BEBIDAS
+            { id: 1301, name: 'Gaseosas 600ml', category: 'bebidas', price: 1200, image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=500&q=80', description: 'Botella de 600ml helada.' },
+            { id: 1302, name: 'Gaseosas 355ml', category: 'bebidas', price: 800, image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=500&q=80', description: 'Lata de 355ml helada.' },
+            { id: 1303, name: 'Gaseosas 3 Litros', category: 'bebidas', price: 2500, image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=500&q=80', description: 'Botella familiar de 3 Litros.' },
+            { id: 1304, name: 'Tropical 500ml', category: 'bebidas', price: 1200, image: 'https://images.unsplash.com/photo-1527661591475-527312dd65f5?auto=format&fit=crop&w=500&q=80', description: 'Refresco Tropical de frutas.' }
+        ];
+
+        // CATEGORIES LIST
+        const categories = [
+            { id: 'todos', label: 'Todos', icon: 'fa-utensils' },
+            { id: 'pollo', label: 'Pollo', icon: 'fa-drumstick-bite' },
+            { id: 'familiares', label: 'Familiares', icon: 'fa-users' },
+            { id: 'tacos', label: 'Tacos', icon: 'fa-align-justify' },
+            { id: 'quesadillas', label: 'Quesadillas', icon: 'fa-cheese' },
+            { id: 'hamburguesas', label: 'Hamburguesas', icon: 'fa-burger' },
+            { id: 'papas', label: 'Papas Fritas', icon: 'fa-stroopwafel' },
+            { id: 'surtidas', label: 'Surtida', icon: 'fa-box-open' },
+            { id: 'vigorones', label: 'Vigorones', icon: 'fa-bowl-food' },
+            { id: 'ensaladas', label: 'Ensaladas', icon: 'fa-leaf' },
+            { id: 'entradas', label: 'Entradas', icon: 'fa-plate-wheat' },
+            { id: 'ninos', label: 'Niños', icon: 'fa-child' },
+            { id: 'adicionales', label: 'Adicionales', icon: 'fa-plus' },
+            { id: 'bebidas', label: 'Bebidas', icon: 'fa-bottle-water' }
+        ];
+
+        let activeCategory = 'todos';
+        let cart = [];
+
+        window.onload = function() {
+            renderCategories();
+            renderProducts();
+            updateCartUI();
+        };
+
+        function renderCategories() {
+            const container = document.getElementById('category-bar');
+            container.innerHTML = categories.map(cat => {
+                const isActive = cat.id === activeCategory;
+                return `
+                    <button onclick="filterCategory('${cat.id}')" 
+                        class="px-4 py-2 rounded-full text-xs font-black tracking-wider transition-all flex items-center gap-1.5 whitespace-nowrap ${
+                            isActive 
+                            ? 'bg-brand-orange text-white shadow-md scale-105' 
+                            : 'bg-gray-100 text-brand-black hover:bg-brand-lightOrange hover:text-brand-orange'
+                        }">
+                        <i class="fa-solid ${cat.icon}"></i>
+                        <span>${cat.label.toUpperCase()}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function filterCategory(catId) {
+            activeCategory = catId;
+            renderCategories();
+            const catObj = categories.find(c => c.id === catId);
+            document.getElementById('current-category-title').innerText = catObj ? catObj.label : 'Menú Completo';
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            const emptyState = document.getElementById('empty-state');
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+
+            const filtered = products.filter(p => {
+                const matchesCat = activeCategory === 'todos' || p.category === activeCategory;
+                const matchesSearch = p.name.toLowerCase().includes(searchTerm) || p.description.toLowerCase().includes(searchTerm);
+                return matchesCat && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filtered.map(product => `
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col justify-between group">
+                    <div class="relative overflow-hidden">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-500">
+                        ${product.badge ? `
+                            <span class="absolute top-3 left-3 bg-brand-orange text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider shadow">
+                                ${product.badge}
+                            </span>
+                        ` : ''}
+                    </div>
+
+                    <div class="p-5 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-black text-base text-brand-black group-hover:text-brand-orange transition-colors">
+                                ${product.name}
+                            </h3>
+                            <p class="text-gray-500 text-xs font-medium mt-1 leading-relaxed">
+                                ${product.description}
+                            </p>
+                        </div>
+
+                        ${product.hasVariant ? `
+                            <div class="mt-4 pt-3 border-t border-gray-100 space-y-2">
+                                <label class="text-[10px] font-bold text-gray-400 uppercase block">Selecciona Opción:</label>
+                                <select id="variant-select-${product.id}" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-2.5 py-1.5 text-xs font-bold text-brand-black outline-none focus:border-brand-orange">
+                                    <option value="base">Solo (₡${product.price.toLocaleString('es-CR')})</option>
+                                    <option value="variant">${product.variantName} (₡${product.variantPrice.toLocaleString('es-CR')})</option>
+                                </select>
+                                <button onclick="addVariantToCart(${product.id})" class="w-full bg-brand-orange hover:bg-brand-darkOrange text-white font-black text-xs py-2 rounded-xl transition-all shadow flex items-center justify-center gap-1.5 mt-2">
+                                    <i class="fa-solid fa-cart-plus"></i> AGREGAR AL PEDIDO
+                                </button>
+                            </div>
+                        ` : `
+                            <div class="flex items-center justify-between pt-4 mt-4 border-t border-gray-100">
+                                <div>
+                                    <span class="text-[10px] text-gray-400 font-bold uppercase block">Precio</span>
+                                    <span class="text-lg font-black text-brand-black">₡${product.price.toLocaleString('es-CR')}</span>
+                                </div>
+                                <button onclick="addToCart(${product.id})" class="bg-brand-orange hover:bg-brand-darkOrange text-white font-black p-2.5 rounded-xl shadow transition-transform transform active:scale-95">
+                                    <i class="fa-solid fa-plus text-sm"></i>
+                                </button>
+                            </div>
+                        `}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterProducts() {
+            renderProducts();
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const cartItemId = `${productId}-base`;
+            const existing = cart.find(item => item.cartItemId === cartItemId);
+
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({
+                    cartItemId: cartItemId,
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            updateCartUI();
+            showToast(`¡${product.name} agregado!`);
+        }
+
+        function addVariantToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const select = document.getElementById(`variant-select-${productId}`);
+            const selectedVal = select.value;
+
+            let finalName = product.name;
+            let finalPrice = product.price;
+            let cartItemId = `${productId}-${selectedVal}`;
+
+            if (selectedVal === 'variant') {
+                finalName = `${product.name} (${product.variantName})`;
+                finalPrice = product.variantPrice;
+            }
+
+            const existing = cart.find(item => item.cartItemId === cartItemId);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({
+                    cartItemId: cartItemId,
+                    id: product.id,
+                    name: finalName,
+                    price: finalPrice,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            updateCartUI();
+            showToast(`¡${finalName} agregado!`);
+        }
+
+        function changeQuantity(cartItemId, delta) {
+            const item = cart.find(i => i.cartItemId === cartItemId);
+            if (!item) return;
+
+            item.quantity += delta;
+            if (item.quantity <= 0) {
+                cart = cart.filter(i => i.cartItemId !== cartItemId);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count-badge').innerText = totalItems;
+            document.getElementById('modal-cart-subtitle').innerText = `${totalItems} productos en tu pedido`;
+
+            const container = document.getElementById('cart-items-container');
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-10">
+                        <i class="fa-solid fa-basket-shopping text-4xl text-gray-300 mb-2"></i>
+                        <p class="font-bold text-xs text-gray-500">Tu carrito está vacío</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = cart.map(item => `
+                    <div class="flex items-center gap-3 bg-gray-50 p-2.5 rounded-2xl border border-gray-100">
+                        <img src="${item.image}" alt="${item.name}" class="w-14 h-14 rounded-xl object-cover">
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-xs text-brand-black leading-tight">${item.name}</h4>
+                            <p class="text-xs font-black text-brand-orange mt-0.5">₡${(item.price * item.quantity).toLocaleString('es-CR')}</p>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white px-2 py-1 rounded-xl border border-gray-200">
+                            <button onclick="changeQuantity('${item.cartItemId}', -1)" class="w-5 h-5 flex items-center justify-center text-gray-500 font-bold hover:text-brand-orange">-</button>
+                            <span class="text-xs font-bold text-brand-black w-4 text-center">${item.quantity}</span>
+                            <button onclick="changeQuantity('${item.cartItemId}', 1)" class="w-5 h-5 flex items-center justify-center text-gray-500 font-bold hover:text-brand-orange">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('cart-total').innerText = `₡${total.toLocaleString('es-CR')}`;
+        }
+
+        function toggleCartModal() {
+            const modal = document.getElementById('cart-modal');
+            const panel = document.getElementById('cart-panel');
+
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    panel.classList.remove('translate-x-full');
+                }, 10);
+            } else {
+                modal.classList.add('opacity-0');
+                panel.classList.add('translate-x-full');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        function sendWhatsAppOrder() {
+            if (cart.length === 0) {
+                showToast('Añade productos antes de enviar el pedido.');
+                return;
+            }
+
+            const name = document.getElementById('cust-name').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
+
+            if (!name || !address) {
+                alert('Por favor ingresa tu Nombre y Dirección para el envío express.');
+                return;
+            }
+
+            let text = `*NUEVO PEDIDO EXPRESS - DONDE TOTO*\n`;
+            text += `---------------------------------\n`;
+            text += `👤 *Cliente:* ${name}\n`;
+            text += `📍 *Dirección:* ${address}\n\n`;
+            text += `📋 *DETALLE DEL PEDIDO:*\n`;
+
+            cart.forEach(item => {
+                text += `• ${item.quantity}x ${item.name} - ₡${(item.price * item.quantity).toLocaleString('es-CR')}\n`;
+            });
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            text += `---------------------------------\n`;
+            text += `💰 *TOTAL A PAGAR: ₡${total.toLocaleString('es-CR')}*\n`;
+            text += `---------------------------------\n`;
+            text += `🛵 ¡Gracias por pedir en DONDE TOTO!`;
+
+            const encodedText = encodeURIComponent(text);
+            window.open(`https://wa.me/50672164864?text=${encodedText}`, '_blank');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
